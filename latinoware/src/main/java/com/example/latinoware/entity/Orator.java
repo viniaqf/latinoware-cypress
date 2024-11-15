@@ -1,14 +1,10 @@
 package com.example.latinoware.entity;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.NamedEntityGraph;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.*;
-
-import javax.naming.Name;
 
 @Entity
 @Table(name = "tb_orator")
