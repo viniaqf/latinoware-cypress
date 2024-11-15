@@ -1,15 +1,13 @@
 package com.example.latinoware.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 
 
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "clientes", schema = "public")
+@Table(name = "tb_event", schema = "public")
 @AllArgsConstructor @NoArgsConstructor
 public class Event extends AbstractEntity {
 
