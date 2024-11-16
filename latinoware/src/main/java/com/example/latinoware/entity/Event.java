@@ -23,7 +23,8 @@ public class Event extends AbstractEntity {
     @Column(name = "eventLocation", nullable = false)
     private EventLocation location;
 
+    @ManyToOne
     @Getter @Setter
-    @Column(name = "eventOrator", nullable = false)
+    @JoinColumn(name = "orator_id", nullable = false)
     private Orator orator;
 }

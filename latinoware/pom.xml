@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.example</groupId>
 	<artifactId>latinoware</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>V-1.0</version>
 	<name>latinoware</name>
 	<description>API para testes da LatinoWare</description>
 	<url/>
