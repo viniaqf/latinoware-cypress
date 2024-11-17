@@ -17,23 +17,23 @@ public class AbstractEntity {
 
     @Getter @Setter
     @Column(name = "dtCadastro", nullable = false)
-    private LocalDateTime cadastro;
+    private LocalDateTime register;
 
     @Getter @Setter
     @Column(name = "dtEdicao")
-    private LocalDateTime edicao;
+    private LocalDateTime update;
 
     @Getter @Setter
     @Column(name = "isAtivo", nullable = false)
-    private boolean ativo;
+    private boolean active;
 
 @PrePersist
     private void prePersist(){
-    this.cadastro = LocalDateTime.now();
+    this.register = LocalDateTime.now();
     }
 @PreUpdate
     private void preUpdate(){
-    this.edicao = LocalDateTime.now();
+    this.update = LocalDateTime.now();
     }
 
 }
