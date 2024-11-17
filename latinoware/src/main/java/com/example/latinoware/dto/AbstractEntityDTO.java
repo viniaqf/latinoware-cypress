@@ -12,16 +12,16 @@ import java.time.LocalDateTime;
 public class AbstractEntityDTO {
 
     private Long id;
-    private LocalDateTime cadastro;
-    private LocalDateTime edicao;
-    private boolean ativo;
-    private LocalDateTime delecao;
+    private LocalDateTime register;
+    private LocalDateTime update;
+    private boolean active;
+    private LocalDateTime deleted;
 
-    public void desativar(){
-        this.delecao = LocalDateTime.now();
+    public void disable(){
+        this.deleted = LocalDateTime.now();
     }
-    public void ativar() {
-        this.delecao = null;
+    public void enable() {
+        this.deleted = null;
     }
 
 
