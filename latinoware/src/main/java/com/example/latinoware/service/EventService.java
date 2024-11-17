@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
+import java.util.List;
+
 
 @Service
 public class EventService {
@@ -39,5 +41,26 @@ public class EventService {
         Assert.notNull(event.getLocation(), "Por favor, insira a localização do evento.");
         Assert.notNull(event.getOrator(), "Por favor, insira o Orador que irá conduzir o evento.");
         return toEventDTO(repository.save(toEventEnt(event)));
+    }
+
+    public EventDTO findById(Long id) {
+        Event event = repository.findById(id).orElse(null);
+        return toEventDTO(event);
+    }
+
+    public List<EventDTO> getAll(){
+        return repository.findAll().stream().map(this::toEventDTO).toList();
+    }
+
+    public EventDTO disable (Long id ){
+        EventDTO eventDTO = findById(id);
+        eventDTO.disable();
+        return toEventDTO(repository.save(toEventEnt(eventDTO)));
+    }
+
+    public EventDTO enable (Long id){
+        EventDTO eventDTO = findById(id);
+        eventDTO.enable();
+        return toEventDTO(repository.save(toEventEnt(eventDTO)));
     }
 }
