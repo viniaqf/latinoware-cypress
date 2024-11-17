@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 
 @Getter @Setter
 @AllArgsConstructor @NoArgsConstructor
-public class EventDTO {
+public class EventDTO extends AbstractEntityDTO{
 
     private String name;
     private LocalDateTime date;

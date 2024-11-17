@@ -8,7 +8,7 @@ import lombok.Setter;
 
 @Getter @Setter
 @AllArgsConstructor @NoArgsConstructor
-public class OratorDTO {
+public class OratorDTO extends AbstractEntityDTO{
     private String name;
     private String age;
     private String jobTitle;
