@@ -15,6 +15,14 @@ public class AbstractEntityDTO {
     private LocalDateTime cadastro;
     private LocalDateTime edicao;
     private boolean ativo;
+    private LocalDateTime delecao;
+
+    public void desativar(){
+        this.delecao = LocalDateTime.now();
+    }
+    public void ativar() {
+        this.delecao = null;
+    }
 
 
 }
