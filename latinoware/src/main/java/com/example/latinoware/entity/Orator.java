@@ -20,11 +20,11 @@ public class Orator extends AbstractEntity {
     private Integer age;
 
     @Getter @Setter
-    @Column(name = "jobTitle")
+    @Column(name = "jobTitle", nullable = false)
     private String jobTitle;
 
     @Getter @Setter
-    @Column(name = "companyName")
+    @Column(name = "companyName", nullable = false)
     private String companyName;
 
     @Getter @Setter
