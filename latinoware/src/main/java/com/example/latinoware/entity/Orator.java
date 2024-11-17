@@ -17,7 +17,7 @@ public class Orator extends AbstractEntity {
 
     @Getter @Setter
     @Column(name = "age")
-    private String age;
+    private Integer age;
 
     @Getter @Setter
     @Column(name = "jobTitle")
