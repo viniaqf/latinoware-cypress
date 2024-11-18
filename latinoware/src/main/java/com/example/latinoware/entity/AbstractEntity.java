@@ -30,6 +30,7 @@ public class AbstractEntity {
 @PrePersist
     private void prePersist(){
     this.register = LocalDateTime.now();
+    this.active = true;
     }
 @PreUpdate
     private void preUpdate(){

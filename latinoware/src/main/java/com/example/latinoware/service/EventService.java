@@ -1,7 +1,6 @@
 package com.example.latinoware.service;
 
 import com.example.latinoware.dto.EventDTO;
-import com.example.latinoware.dto.OratorDTO;
 import com.example.latinoware.entity.Event;
 import com.example.latinoware.entity.Orator;
 import com.example.latinoware.repository.EventRepository;
@@ -36,7 +35,6 @@ public class EventService {
         Assert.notNull(event.getDate(), "Por favor, insira a data do evento.");
         Assert.notNull(event.getLocation(), "Por favor, insira a localização do evento.");
         Assert.notNull(oratorDB, "O Orador informado não está cadastrado.");
-
         return toEventDTO(repository.save(toEventEnt(event)));
     }
     public EventDTO put(EventDTO event, Long id){
