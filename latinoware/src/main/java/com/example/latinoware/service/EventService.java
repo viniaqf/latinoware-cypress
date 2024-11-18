@@ -40,13 +40,14 @@ public class EventService {
         return toEventDTO(repository.save(toEventEnt(event)));
     }
     public EventDTO put(EventDTO event, Long id){
+        Orator oratorDB = oratorRepository.findById(event.getOrator().getId()).orElse(null);
         Assert.notNull(id, "Por favor, insira um ID.");
         Assert.notNull(event.getId(), "Por favor, insira um ID.");
         Assert.notNull(event.getName(),"Por favor, insira o nome do evento.");
         Assert.hasText(event.getName(), "Digite um nome válido.");
         Assert.notNull(event.getDate(), "Por favor, insira a data do evento.");
         Assert.notNull(event.getLocation(), "Por favor, insira a localização do evento.");
-        Assert.notNull(event.getOrator(), "Por favor, insira o Orador que irá conduzir o evento.");
+        Assert.notNull(oratorDB, "O Orador informado não está cadastrado.");
         return toEventDTO(repository.save(toEventEnt(event)));
     }
 
