@@ -2,6 +2,8 @@ package com.example.latinoware.dto;
 
 import com.example.latinoware.entity.EventLocation;
 import com.example.latinoware.entity.Orator;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,5 +19,6 @@ public class EventDTO extends AbstractEntityDTO{
     private String name;
     private LocalDateTime date;
     private EventLocation location;
+    @JsonIgnoreProperties("events")
     private Orator orator;
 }
