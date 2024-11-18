@@ -19,7 +19,7 @@ public class Event extends AbstractEntity {
     @Column(name = "eventDate", nullable = false)
     private LocalDateTime date;
 
-    @Getter @Setter
+    @Getter @Setter @Enumerated(EnumType.STRING)
     @Column(name = "eventLocation", nullable = false)
     private EventLocation location;
 
