@@ -12,7 +12,7 @@ import java.util.List;
 public class Orator extends AbstractEntity {
 
     @Getter @Setter
-    @Column(name = "oratorName", nullable = false, length = 50)
+    @Column(name = "oratorName", nullable = false, length = 40)
     private String name;
 
     @Getter @Setter
