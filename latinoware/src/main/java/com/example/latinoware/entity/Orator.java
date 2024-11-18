@@ -12,7 +12,7 @@ import java.util.List;
 public class Orator extends AbstractEntity {
 
     @Getter @Setter
-    @Column(name = "oratorName", nullable = false)
+    @Column(name = "oratorName", nullable = false, length = 50)
     private String name;
 
     @Getter @Setter
@@ -20,14 +20,15 @@ public class Orator extends AbstractEntity {
     private Integer age;
 
     @Getter @Setter
-    @Column(name = "jobTitle", nullable = false)
+    @Column(name = "jobTitle", nullable = false, length = 30)
     private String jobTitle;
 
     @Getter @Setter
-    @Column(name = "companyName", nullable = false)
+    @Column(name = "companyName", nullable = false, length = 50)
     private String companyName;
 
     @Getter @Setter
     @OneToMany(mappedBy = "orator", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Event> events;
 }
+//TODO: Criar a lenght nas Strings, menos a que eu selecionar pra fazer o bug.
