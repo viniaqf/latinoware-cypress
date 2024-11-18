@@ -1,30 +1,34 @@
 package com.example.latinoware.entity;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.*;
 
+import java.util.List;
+
 @Entity
-@Table(name = "tb_orator")
+@Table(name = "tb_orator", schema = "public")
 @AllArgsConstructor @NoArgsConstructor
 public class Orator extends AbstractEntity {
 
     @Getter @Setter
-    @Column(name = "oratorName", nullable = false)
+    @Column(name = "oratorName", nullable = false, length = 40)
     private String name;
 
     @Getter @Setter
     @Column(name = "age")
-    private String age;
+    private Integer age;
 
     @Getter @Setter
-    @Column(name = "jobTitle")
+    @Column(name = "jobTitle", nullable = false, length = 30)
     private String jobTitle;
 
     @Getter @Setter
-    @Column(name = "companyName")
+    @Column(name = "companyName", nullable = false, length = 50)
     private String companyName;
 
+    @Getter @Setter
+    @OneToMany(mappedBy = "orator", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Event> events;
 }
+//TODO: Criar a lenght nas Strings, menos a que eu selecionar pra fazer o bug.

@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 public class Event extends AbstractEntity {
 
     @Getter @Setter
-    @Column(name = "eventName", nullable = false, unique = true)
+    @Column(name = "eventName", nullable = false, unique = true, length = 50)
     private String name;
 
     @Getter @Setter
@@ -23,7 +23,8 @@ public class Event extends AbstractEntity {
     @Column(name = "eventLocation", nullable = false)
     private EventLocation location;
 
+    @ManyToOne
     @Getter @Setter
-    @Column(name = "eventOrator", nullable = false)
+    @JoinColumn(name = "orator_id", nullable = false)
     private Orator orator;
 }
