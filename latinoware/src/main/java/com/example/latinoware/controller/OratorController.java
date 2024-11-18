@@ -26,7 +26,8 @@ public class OratorController {
     @PostMapping("/post")
     public ResponseEntity<?>post(@RequestBody @Validated OratorDTO oratorDTO){
         try{
-            return ResponseEntity.ok(service.post(oratorDTO));
+            this.service.post(oratorDTO);
+            return ResponseEntity.ok("Orador cadastrado com sucesso!");
         }catch (Exception e){
             return ResponseEntity.badRequest().body(e.getMessage());
         }
@@ -34,7 +35,8 @@ public class OratorController {
     @PutMapping("/put/{id}")
     public ResponseEntity<?>put(@RequestBody @Validated OratorDTO oratorDTO, @PathVariable("id") final long id){
         try{
-            return ResponseEntity.ok(service.put(oratorDTO,id));
+            this.service.put(oratorDTO,id);
+            return ResponseEntity.ok("Atualizado com sucesso!");
         }catch (Exception e){
             return ResponseEntity.badRequest().body(e.getMessage());
         }
@@ -43,7 +45,7 @@ public class OratorController {
     public ResponseEntity<?>disable(@PathVariable("id") final long id){
         try {
             this.service.disable(id);
-            return ResponseEntity.ok("Desativado com sucesso.");
+            return ResponseEntity.ok("Desativado com sucesso!");
         }catch (Exception e){
             return ResponseEntity.badRequest().body(e.getMessage());
         }

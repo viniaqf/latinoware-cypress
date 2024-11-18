@@ -27,7 +27,8 @@ public class EventController {
     @PostMapping("/post")
     public ResponseEntity<?>post(@RequestBody @Validated EventDTO eventDTO){
         try{
-            return ResponseEntity.ok(service.post(eventDTO));
+            this.service.post(eventDTO);
+            return ResponseEntity.ok("Evento criado com sucesso!");
         }catch (Exception e){
             return ResponseEntity.badRequest().body(e.getMessage());
         }
@@ -35,7 +36,8 @@ public class EventController {
     @PutMapping("/put/{id}")
     public ResponseEntity<?>put(@RequestBody @Validated EventDTO eventDTO, @PathVariable("id") final long id){
         try {
-            return ResponseEntity.ok(service.put(eventDTO, id));
+            this.service.put(eventDTO,id);
+            return ResponseEntity.ok("Atualizado com sucesso!");
         }catch (Exception e){
             return ResponseEntity.badRequest().body(e.getMessage());
         }
@@ -44,7 +46,7 @@ public class EventController {
     public ResponseEntity<?>disable(@PathVariable("id") final long id){
         try{
             this.service.disable(id);
-            return ResponseEntity.ok("Desativado com sucesso.");
+            return ResponseEntity.ok("Desativado com sucesso!");
         }catch (Exception e){
             return ResponseEntity.badRequest().body(e.getMessage());
         }
@@ -53,7 +55,7 @@ public class EventController {
     public ResponseEntity<?>enable(@PathVariable("id") final long id){
         try{
             this.service.enable(id);
-            return ResponseEntity.ok("Ativado com sucesso.");
+            return ResponseEntity.ok("Ativado com sucesso!");
         }catch (Exception e){
             return ResponseEntity.badRequest().body(e.getMessage());
         }
