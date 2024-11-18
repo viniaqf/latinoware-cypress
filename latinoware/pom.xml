@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.example</groupId>
 	<artifactId>latinoware</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>V-1.0</version>
 	<name>latinoware</name>
 	<description>API para testes da LatinoWare</description>
 	<url/>
@@ -50,9 +50,20 @@
 			<optional>true</optional>
 		</dependency>
 		<dependency>
+			<groupId>org.hibernate.validator</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>8.0.0.Final</version> <!-- Use a versão mais recente que seja compatível com seu projeto -->
+		</dependency>
+
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.modelmapper</groupId>
+			<artifactId>modelmapper</artifactId>
+			<version>2.4.4</version>
 		</dependency>
 	</dependencies>
 
