@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 public class AbstractEntity {
 
     @Id
-    @Getter
+    @Getter @Setter
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", unique = true)
     private Long id;
@@ -24,6 +24,10 @@ public class AbstractEntity {
     private LocalDateTime update;
 
     @Getter @Setter
+    @Column(name="dtDelecao")
+    private LocalDateTime deleted;
+
+    @Getter @Setter
     @Column(name = "isAtivo", nullable = false)
     private boolean active;
 
@@ -31,6 +35,7 @@ public class AbstractEntity {
     private void prePersist(){
     this.register = LocalDateTime.now();
     this.active = true;
+    this.deleted = null;
     }
 @PreUpdate
     private void preUpdate(){

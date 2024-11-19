@@ -10,7 +10,6 @@ import java.time.LocalDateTime;
 @Getter @Setter
 @AllArgsConstructor @NoArgsConstructor
 public class AbstractEntityDTO {
-
     private Long id;
     private LocalDateTime register;
     private LocalDateTime update;
@@ -19,9 +18,10 @@ public class AbstractEntityDTO {
 
     public void disable(){
         this.deleted = LocalDateTime.now();
+        this.active = false;
     }
     public void enable() {
-        this.deleted = null;
+        this.active = true;
     }
 
 
