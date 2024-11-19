@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -48,6 +49,7 @@ public class OratorService {
     public OratorDTO disable (Long id ){
         OratorDTO oratorDTO = findById(id);
         oratorDTO.disable();
+        oratorDTO.setDeleted(LocalDateTime.now());
         return toOratorDTO(repository.save(toOratorEnt(oratorDTO)));
     }
 
