@@ -27,6 +27,8 @@ public class OratorService {
         Assert.notNull(orator.getCompanyName(), "Por favor, insira a empresa do Orador.");
         Assert.notNull(orator.getJobTitle(), "Por favor, insira a titulação do Orador");
         Assert.hasText(orator.getJobTitle(), "Por favor, insira uma titulação válida!.");
+        Assert.notNull(orator.getName(), "Por favor, o nome do orador!");
+        Assert.notNull(orator.getName(), "Por favor, insira um nome válido para o orador!");
         return toOratorDTO(repository.save(toOratorEnt(orator)));
     }
     public OratorDTO put(OratorDTO oratorDTO, Long id){
