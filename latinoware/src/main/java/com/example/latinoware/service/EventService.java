@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -61,12 +62,15 @@ public class EventService {
     public EventDTO disable (Long id ){
         EventDTO eventDTO = findById(id);
         eventDTO.disable();
+        eventDTO.setActive(false);
+        eventDTO.setDeleted(LocalDateTime.now());
         return toEventDTO(repository.save(toEventEnt(eventDTO)));
     }
 
     public EventDTO enable (Long id){
         EventDTO eventDTO = findById(id);
         eventDTO.enable();
+        eventDTO.setActive(true);
         return toEventDTO(repository.save(toEventEnt(eventDTO)));
     }
 }
