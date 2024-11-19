@@ -28,7 +28,7 @@ public class Orator extends AbstractEntity {
     private String companyName;
 
     @Getter @Setter
-    @OneToMany(mappedBy = "orator", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "orator", cascade = CascadeType.ALL)
     private List<Event> events;
 }
 //TODO: Criar a lenght nas Strings, menos a que eu selecionar pra fazer o bug.
