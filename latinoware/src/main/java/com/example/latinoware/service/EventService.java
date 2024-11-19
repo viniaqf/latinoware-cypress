@@ -7,11 +7,15 @@ import com.example.latinoware.repository.EventRepository;
 import com.example.latinoware.repository.OratorRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -29,7 +33,34 @@ public class EventService {
     public EventDTO toEventDTO(Event eventEnt){
         return modelMapper.map(eventEnt, EventDTO.class);
     }
+
+    public List<Event> toEventEntityList(List<EventDTO> eventDTOs) {
+        return eventDTOs.stream()
+                .map(dto -> modelMapper.map(dto, Event.class))
+                .collect(Collectors.toList());
+    }
+
+    public List<EventDTO> createMultipleEvents(List<EventDTO> eventDTOs) {
+        Set<String> existingEventNames = repository.findAll().stream().map(Event::getName).collect(Collectors.toSet());
+        for (EventDTO eventDTO : eventDTOs){
+            if (existingEventNames.contains(eventDTO.getName())){
+                throw new IllegalArgumentException("Já existe um evento com o nome " + eventDTO.getName());
+            }
+        }
+        List<Event> events = toEventEntityList(eventDTOs);
+        List<Event> savedEvents = repository.saveAll(events);
+        return savedEvents.stream()
+                .map(this::toEventDTO)
+                .collect(Collectors.toList());
+    }
+
     public EventDTO post(EventDTO event){
+
+        Optional<Event> existingEvent = repository.findByName(event.getName());
+
+        if (existingEvent.isPresent()){
+            throw new IllegalArgumentException("Já existe um evento com o nome " + event.getName());
+        }
         Orator oratorDB = oratorRepository.findById(event.getOrator().getId()).orElse(null);
         Assert.notNull(event.getName(),"Por favor, insira o nome do evento.");
         Assert.hasText(event.getName(), "Digite um nome válido.");
@@ -57,6 +88,10 @@ public class EventService {
 
     public List<EventDTO> getAll(){
         return repository.findAll().stream().map(this::toEventDTO).toList();
+    }
+
+    public List<EventDTO> findAllActive(){
+        return repository.findByActiveTrue().stream().map(this::toEventDTO).toList();
     }
 
     public EventDTO disable (Long id ){

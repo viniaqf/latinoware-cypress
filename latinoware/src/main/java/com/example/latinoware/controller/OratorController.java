@@ -23,6 +23,12 @@ public class OratorController {
     public ResponseEntity<List<OratorDTO>>getAll(){
         return ResponseEntity.ok(service.getAll());
     }
+
+    @GetMapping("/todos")
+    public ResponseEntity<List<OratorDTO>>findAll(){
+        return ResponseEntity.ok(service.findAll());
+    }
+
     @PostMapping("/post")
     public ResponseEntity<?>post(@RequestBody @Validated OratorDTO oratorDTO){
         try{

@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -24,6 +25,21 @@ public class EventController {
     public ResponseEntity<List<EventDTO>>getAll(){
         return ResponseEntity.ok(service.getAll());
     }
+    @GetMapping("/todos")
+    public ResponseEntity<List<EventDTO>>findAll(){
+        return ResponseEntity.ok(service.findAllActive());
+    }
+
+    @PostMapping("/multiple")
+    public List<?> createMultipleEvents(@RequestBody List<EventDTO> events){
+        try {
+            List<EventDTO> createdEvents = service.createMultipleEvents(events);
+            return ResponseEntity.ok(createdEvents).getBody();
+        } catch (Exception e){
+            return Collections.singletonList(ResponseEntity.badRequest().body(e.getMessage()));
+        }
+    }
+
     @PostMapping("/post")
     public ResponseEntity<?>post(@RequestBody @Validated EventDTO eventDTO){
         try{
