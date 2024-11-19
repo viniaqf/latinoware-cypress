@@ -1,6 +1,6 @@
 FROM ubuntu:latest AS build
 
-RUN apt-get update && apt-get-install -y openjdk-17-jdk maven
+RUN apt-get update && apt-get install -y openjdk-17-jdk maven
 
 WORKDIR /app
 
@@ -10,7 +10,9 @@ COPY . .
 RUN mvn clean install
 
 #instalando um jdk mais leve
-#FROM openjdk:17-jdk-slim
+FROM openjdk:17-jdk-slim
+
+WORKDIR /app
 
 #Expondo a porta da aplicação
 EXPOSE 8080
