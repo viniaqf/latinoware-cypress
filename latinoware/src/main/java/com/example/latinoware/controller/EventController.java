@@ -1,6 +1,7 @@
 package com.example.latinoware.controller;
 
 import com.example.latinoware.dto.EventDTO;
+import com.example.latinoware.entity.Event;
 import com.example.latinoware.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -8,7 +9,9 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping(value = "/api/event")
@@ -31,12 +34,14 @@ public class EventController {
     }
 
     @PostMapping("/multiples")
-    public List<?> createMultipleEvents(@RequestBody List<EventDTO> events){
+    public ResponseEntity<Map<String, List<?>>> createMultipleEvents(@RequestBody List<EventDTO> events){
         try {
-            List<EventDTO> createdEvents = service.createMultipleEvents(events);
-            return ResponseEntity.ok(createdEvents).getBody();
+            Map<String,List<?>> response = service.createMultipleEvents(events);
+            return ResponseEntity.ok(response);
         } catch (Exception e){
-            return Collections.singletonList(ResponseEntity.badRequest().body(e.getMessage()));
+            Map<String, List<String>> errorResponse = new HashMap<>();
+            errorResponse.put("erros", Collections.singletonList(e.getMessage()));
+            return ResponseEntity.badRequest().body((Map) errorResponse);
         }
     }
 
@@ -69,6 +74,27 @@ public class EventController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
+    @DeleteMapping("/deleteEventReal/{id}")
+    public ResponseEntity<?>delete(@PathVariable("id") final long id){
+        try {
+            EventDTO eventName = service.findById(id);
+            service.deleteEventReal(id);
+            return ResponseEntity.ok("Evento "+ eventName.getName() +" deletado com sucesso!");
+        } catch (IllegalArgumentException e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+    @DeleteMapping("/delete-all")
+    public ResponseEntity<?>deleteAll(){
+        try {
+            service.deleteAll();
+            return ResponseEntity.ok("Todos os eventos foram deletados com sucesso!");
+        } catch (Exception e){
+            return ResponseEntity.badRequest().body("Error ao deletar todos os eventos: " + e.getMessage());
+        }
+    }
+
     @PutMapping("/enable/{id}")
     public ResponseEntity<?>enable(@PathVariable("id") final long id){
         try{
