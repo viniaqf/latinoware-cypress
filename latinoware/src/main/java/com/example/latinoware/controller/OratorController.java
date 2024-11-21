@@ -24,7 +24,7 @@ public class OratorController {
         return ResponseEntity.ok(service.getAll());
     }
 
-    @GetMapping("/todos")
+    @GetMapping("/all-actives")
     public ResponseEntity<List<OratorDTO>>findAll(){
         return ResponseEntity.ok(service.findAll());
     }
@@ -41,8 +41,9 @@ public class OratorController {
     @PutMapping("/put/{id}")
     public ResponseEntity<?>put(@RequestBody @Validated OratorDTO oratorDTO, @PathVariable("id") final long id){
         try{
+            OratorDTO oratorName = service.findById(id);
             this.service.put(oratorDTO,id);
-            return ResponseEntity.ok("Atualizado com sucesso!");
+            return ResponseEntity.ok( "Palestrante " + oratorName.getName() + " atualizado com sucesso!");
         }catch (Exception e){
             return ResponseEntity.badRequest().body(e.getMessage());
         }
@@ -50,8 +51,9 @@ public class OratorController {
     @DeleteMapping("/disable/{id}")
     public ResponseEntity<?>disable(@PathVariable("id") final long id){
         try {
+            OratorDTO oratorName = service.findById(id);
             this.service.disable(id);
-            return ResponseEntity.ok("Desativado com sucesso!");
+            return ResponseEntity.ok("Palestrante " + oratorName.getName() + " desativado com sucesso!");
         }catch (Exception e){
             return ResponseEntity.badRequest().body(e.getMessage());
         }
@@ -59,8 +61,9 @@ public class OratorController {
     @PutMapping("/enable/{id}")
     public ResponseEntity<?>enable(@PathVariable("id") final long id){
         try{
+            OratorDTO oratorName = service.findById(id);
             this.service.enable(id);
-            return ResponseEntity.ok("Ativado com sucesso!");
+            return ResponseEntity.ok( "Palestrante " + oratorName.getName() + " ativado com sucesso!");
         }catch (Exception e){
             return ResponseEntity.badRequest().body(e.getMessage());
         }

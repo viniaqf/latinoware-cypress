@@ -25,12 +25,12 @@ public class EventController {
     public ResponseEntity<List<EventDTO>>getAll(){
         return ResponseEntity.ok(service.getAll());
     }
-    @GetMapping("/todos")
+    @GetMapping("/all-actives")
     public ResponseEntity<List<EventDTO>>findAll(){
         return ResponseEntity.ok(service.findAllActive());
     }
 
-    @PostMapping("/multiple")
+    @PostMapping("/multiples")
     public List<?> createMultipleEvents(@RequestBody List<EventDTO> events){
         try {
             List<EventDTO> createdEvents = service.createMultipleEvents(events);
@@ -52,8 +52,9 @@ public class EventController {
     @PutMapping("/put/{id}")
     public ResponseEntity<?>put(@RequestBody @Validated EventDTO eventDTO, @PathVariable("id") final long id){
         try {
+            EventDTO eventName = service.findById(id);
             this.service.put(eventDTO,id);
-            return ResponseEntity.ok("Atualizado com sucesso!");
+            return ResponseEntity.ok("Evento "+ eventName.getName() +" atualizado com sucesso!");
         }catch (Exception e){
             return ResponseEntity.badRequest().body(e.getMessage());
         }
@@ -61,8 +62,9 @@ public class EventController {
     @DeleteMapping("/disable/{id}")
     public ResponseEntity<?>disable(@PathVariable("id") final long id){
         try{
+            EventDTO eventName = service.findById(id);
             this.service.disable(id);
-            return ResponseEntity.ok("Desativado com sucesso!");
+            return ResponseEntity.ok("Evento "+ eventName.getName() +" desativado com sucesso!");
         }catch (Exception e){
             return ResponseEntity.badRequest().body(e.getMessage());
         }
@@ -70,8 +72,9 @@ public class EventController {
     @PutMapping("/enable/{id}")
     public ResponseEntity<?>enable(@PathVariable("id") final long id){
         try{
+            EventDTO eventName = service.findById(id);
             this.service.enable(id);
-            return ResponseEntity.ok("Ativado com sucesso!");
+            return ResponseEntity.ok("Evento "+ eventName.getName() +" ativado com sucesso!");
         }catch (Exception e){
             return ResponseEntity.badRequest().body(e.getMessage());
         }
