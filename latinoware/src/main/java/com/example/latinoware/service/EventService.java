@@ -12,9 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
@@ -40,18 +38,27 @@ public class EventService {
                 .collect(Collectors.toList());
     }
 
-    public List<EventDTO> createMultipleEvents(List<EventDTO> eventDTOs) {
+    public Map<String, List<?>> createMultipleEvents(List<EventDTO> eventDTOs) {
         Set<String> existingEventNames = repository.findAll().stream().map(Event::getName).collect(Collectors.toSet());
+
+        List<Event> validEvents = new ArrayList<>();
+        List<String> errorMessages = new ArrayList<>();
         for (EventDTO eventDTO : eventDTOs){
             if (existingEventNames.contains(eventDTO.getName())){
-                throw new IllegalArgumentException("Já existe um evento com o nome " + eventDTO.getName());
+                errorMessages.add("Já existe um evento com o nome " + eventDTO.getName());
+            } else {
+                validEvents.add(modelMapper.map(eventDTO, Event.class));
             }
         }
-        List<Event> events = toEventEntityList(eventDTOs);
-        List<Event> savedEvents = repository.saveAll(events);
-        return savedEvents.stream()
-                .map(this::toEventDTO)
-                .collect(Collectors.toList());
+
+        List<Event> savedEvents = repository.saveAll(validEvents);
+        List<EventDTO> savedEventsDTOs = savedEvents.stream().map(this::toEventDTO).toList();
+
+        Map<String, List<?>> response = new HashMap<>();
+        response.put("savedEvents", savedEventsDTOs);
+        response.put("errors", errorMessages);
+
+        return response;
     }
 
     public EventDTO post(EventDTO event){
@@ -82,7 +89,7 @@ public class EventService {
     }
 
     public EventDTO findById(Long id) {
-        Event event = repository.findById(id).orElse(null);
+        Event event = repository.findById(id).orElseThrow(() -> new IllegalArgumentException("Evento com ID " + id + " não encontrado."));
         return toEventDTO(event);
     }
 
@@ -108,4 +115,15 @@ public class EventService {
         eventDTO.setActive(true);
         return toEventDTO(repository.save(toEventEnt(eventDTO)));
     }
+
+    public void deleteEventReal (Long id){
+        Event event = repository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Evento com ID " + id + " não encontrado."));
+        repository.delete(event);
+    }
+
+    public void deleteAll(){
+        repository.deleteAll();
+    }
+
 }
