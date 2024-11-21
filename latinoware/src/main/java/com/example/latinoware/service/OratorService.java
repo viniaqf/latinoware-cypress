@@ -48,6 +48,10 @@ public class OratorService {
         return repository.findAll().stream().map(this::toOratorDTO).toList();
     }
 
+    public List<OratorDTO> findAll(){
+        return repository.findByActiveTrue().stream().map(this::toOratorDTO).toList();
+    }
+
     public OratorDTO disable (Long id ){
         OratorDTO oratorDTO = findById(id);
         oratorDTO.disable();
