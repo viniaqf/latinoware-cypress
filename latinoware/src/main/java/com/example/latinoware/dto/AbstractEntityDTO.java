@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor @NoArgsConstructor
 public class AbstractEntityDTO {
     private Long id;
-    private LocalDateTime register;
+    private LocalDateTime registerDate;
     private LocalDateTime update;
     private boolean active;
     private LocalDateTime deleted;
