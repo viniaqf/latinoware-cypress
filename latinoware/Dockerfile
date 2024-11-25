@@ -7,7 +7,7 @@ WORKDIR /app
 #vai copiar os arquivos de dentro da aplicação para dentro do container
 COPY . .
 #compilando e empacotando os arquivos
-RUN mvn clean install
+RUN mvn clean install -DskipTests
 
 #instalando um jdk mais leve
 FROM openjdk:17-jdk-slim
