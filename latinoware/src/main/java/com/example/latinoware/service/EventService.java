@@ -68,24 +68,21 @@ public class EventService {
             throw new IllegalArgumentException("Já existe um evento com o nome " + event.getName());
         }
 
-        if (event.getName().length() <3 || event.getName().length() >50){
-            throw new IllegalArgumentException("No mínimo 3 e no máximo 50 caracteres.");
-        }
         Orator oratorDB = oratorRepository.findById(event.getOrator().getId()).orElse(null);
         Assert.notNull(event.getName(),"Por favor, insira o nome do evento.");
         Assert.hasText(event.getName(), "Digite um nome válido.");
         Assert.notNull(event.getEventDate(), "Por favor, insira a data do evento.");
         Assert.notNull(event.getLocation(), "Por favor, insira a localização do evento.");
         Assert.notNull(oratorDB, "O Orador informado não está cadastrado.");
-        return toEventDTO(repository.save(toEventEnt(event)));
-    }
-    public EventDTO put(EventDTO event, Long id){
-        Orator oratorDB = oratorRepository.findById(event.getOrator().getId()).orElse(null);
 
         if (event.getName().length() <3 || event.getName().length() >50){
             throw new IllegalArgumentException("No mínimo 3 e no máximo 50 caracteres.");
         }
 
+        return toEventDTO(repository.save(toEventEnt(event)));
+    }
+    public EventDTO put(EventDTO event, Long id){
+        Orator oratorDB = oratorRepository.findById(event.getOrator().getId()).orElse(null);
         Optional<Event> existingEvent = repository.findByName(event.getName());
         if (existingEvent.isPresent()){
             throw new IllegalArgumentException("Já existe um evento com o nome " + event.getName());
@@ -97,6 +94,11 @@ public class EventService {
         Assert.notNull(event.getEventDate(), "Por favor, insira a data do evento.");
         Assert.notNull(event.getLocation(), "Por favor, insira a localização do evento.");
         Assert.notNull(oratorDB, "O Orador informado não está cadastrado.");
+
+        if (event.getName().length() <3 || event.getName().length() >50){
+            throw new IllegalArgumentException("No mínimo 3 e no máximo 50 caracteres.");
+        }
+
         event.update();
         return toEventDTO(repository.save(toEventEnt(event)));
     }
