@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.cglib.core.Local;
 
 import java.time.LocalDateTime;
 
@@ -11,7 +12,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor @NoArgsConstructor
 public class AbstractEntityDTO {
     private Long id;
-    private LocalDateTime register;
+    private LocalDateTime registerDate;
     private LocalDateTime update;
     private boolean active;
     private LocalDateTime deleted;
@@ -22,7 +23,11 @@ public class AbstractEntityDTO {
     }
     public void enable() {
         this.active = true;
+        this.update = LocalDateTime.now();
     }
 
+    public void update(){
+        this.update = LocalDateTime.now();
+    }
 
 }
