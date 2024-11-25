@@ -19,6 +19,7 @@ jobs:
     - name: Build and Push Docker Image
       uses: docker/build-push-action@v4
       with:
-        context: .
+        context: ./latinoware
+        dockerfile: ./latinoware/Dockerfile
         push: true
         tags: ${{ secrets.DOCKER_HUB_USERNAME }}/lw-teste:latest
