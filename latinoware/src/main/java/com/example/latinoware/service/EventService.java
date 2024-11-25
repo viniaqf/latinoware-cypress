@@ -76,7 +76,7 @@ public class EventService {
         Assert.notNull(oratorDB, "O Orador informado não está cadastrado.");
 
         if (event.getName().length() <3 || event.getName().length() >50){
-            throw new IllegalArgumentException("No mínimo 3 e no máximo 50 caracteres.");
+            throw new IllegalArgumentException("[Nome do Evento] No mínimo 3 e no máximo 50 caracteres.");
         }
 
         return toEventDTO(repository.save(toEventEnt(event)));
@@ -94,11 +94,11 @@ public class EventService {
         Assert.notNull(event.getEventDate(), "Por favor, insira a data do evento.");
         Assert.notNull(event.getLocation(), "Por favor, insira a localização do evento.");
         Assert.notNull(oratorDB, "O Orador informado não está cadastrado.");
-
+        /*
         if (event.getName().length() <3 || event.getName().length() >50){
-            throw new IllegalArgumentException("No mínimo 3 e no máximo 50 caracteres.");
+            throw new IllegalArgumentException("[Nome do Evento] No mínimo 3 e no máximo 50 caracteres.");
         }
-
+        */
         event.update();
         return toEventDTO(repository.save(toEventEnt(event)));
     }
