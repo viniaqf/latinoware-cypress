@@ -85,6 +85,7 @@ public class EventService {
         Assert.notNull(event.getDate(), "Por favor, insira a data do evento.");
         Assert.notNull(event.getLocation(), "Por favor, insira a localização do evento.");
         Assert.notNull(oratorDB, "O Orador informado não está cadastrado.");
+        event.update();
         return toEventDTO(repository.save(toEventEnt(event)));
     }
 
@@ -105,7 +106,6 @@ public class EventService {
         EventDTO eventDTO = findById(id);
         eventDTO.disable();
         eventDTO.setActive(false);
-        eventDTO.setDeleted(LocalDateTime.now());
         return toEventDTO(repository.save(toEventEnt(eventDTO)));
     }
 

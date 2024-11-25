@@ -20,9 +20,11 @@ public class OratorService {
     public Orator toOratorEnt(OratorDTO oratorDTO){
         return modelMapper.map(oratorDTO, Orator.class);
     }
+
     public OratorDTO toOratorDTO(Orator oratorEnt){
         return modelMapper.map(oratorEnt, OratorDTO.class);
     }
+
     public OratorDTO post(OratorDTO orator){
         Assert.notNull(orator.getCompanyName(), "Por favor, insira a empresa do Orador.");
         Assert.notNull(orator.getJobTitle(), "Por favor, insira a titulação do Orador");
@@ -36,6 +38,7 @@ public class OratorService {
         Assert.notNull(oratorDTO.getCompanyName(), "Por favor, insira a empresa do Orador.");
         Assert.notNull(oratorDTO.getJobTitle(), "Por favor, insira a titulação do Orador");
         Assert.hasText(oratorDTO.getJobTitle(), "Por favor, insira uma titulação válida!.");
+        oratorDTO.update();
         return toOratorDTO(repository.save(toOratorEnt(oratorDTO)));
     }
 
@@ -55,7 +58,6 @@ public class OratorService {
     public OratorDTO disable (Long id ){
         OratorDTO oratorDTO = findById(id);
         oratorDTO.disable();
-        oratorDTO.setDeleted(LocalDateTime.now());
         return toOratorDTO(repository.save(toOratorEnt(oratorDTO)));
     }
 
