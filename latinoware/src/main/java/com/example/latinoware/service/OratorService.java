@@ -26,6 +26,17 @@ public class OratorService {
     }
 
     public OratorDTO post(OratorDTO orator){
+        if (orator.getName().length() < 3 || orator.getName().length() > 40){
+            throw new IllegalArgumentException("No mínimo 3 e no máximo 40 caracteres.");
+        }
+
+        if (orator.getJobTitle().length() < 2 || orator.getJobTitle().length() > 30){
+            throw new IllegalArgumentException("No mínimo 2 e no máximo 30 caracteres.");
+        }
+
+        if (orator.getCompanyName().length() < 3 || orator.getCompanyName().length() > 50){
+            throw new IllegalArgumentException("No mínimo 3 e no máximo 50 caracteres.");
+        }
         Assert.notNull(orator.getCompanyName(), "Por favor, insira a empresa do Orador.");
         Assert.notNull(orator.getJobTitle(), "Por favor, insira a titulação do Orador");
         Assert.hasText(orator.getJobTitle(), "Por favor, insira uma titulação válida!.");

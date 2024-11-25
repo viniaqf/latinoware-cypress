@@ -4,7 +4,6 @@ import com.example.latinoware.dto.OratorDTO;
 import com.example.latinoware.service.OratorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -30,7 +29,7 @@ public class OratorController {
     }
 
     @PostMapping("/post")
-    public ResponseEntity<?>post(@RequestBody @Validated OratorDTO oratorDTO){
+    public ResponseEntity<?>post(@RequestBody OratorDTO oratorDTO){
         try{
             this.service.post(oratorDTO);
             return ResponseEntity.ok("Orador cadastrado com sucesso!");
@@ -39,7 +38,7 @@ public class OratorController {
         }
     }
     @PutMapping("/put/{id}")
-    public ResponseEntity<?>put(@RequestBody @Validated OratorDTO oratorDTO, @PathVariable("id") final long id){
+    public ResponseEntity<?>put(@RequestBody OratorDTO oratorDTO, @PathVariable("id") final long id){
         try{
             OratorDTO oratorName = service.findById(id);
             this.service.put(oratorDTO,id);

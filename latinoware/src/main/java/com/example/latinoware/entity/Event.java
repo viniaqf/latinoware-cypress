@@ -23,4 +23,8 @@ public class Event extends AbstractEntity {
     @Getter @Setter
     @JoinColumn(name = "orator_id", nullable = false)
     private Orator orator;
+
+    @Getter @Setter
+    @Column(name = "eventDate", nullable = false)
+    private LocalDateTime eventDate;
 }

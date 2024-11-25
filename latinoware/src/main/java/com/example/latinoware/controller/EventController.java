@@ -1,11 +1,9 @@
 package com.example.latinoware.controller;
 
 import com.example.latinoware.dto.EventDTO;
-import com.example.latinoware.entity.Event;
 import com.example.latinoware.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
@@ -46,7 +44,7 @@ public class EventController {
     }
 
     @PostMapping("/post")
-    public ResponseEntity<?>post(@RequestBody @Validated EventDTO eventDTO){
+    public ResponseEntity<?>post(@RequestBody EventDTO eventDTO){
         try{
             this.service.post(eventDTO);
             return ResponseEntity.ok("Evento criado com sucesso!");
@@ -55,7 +53,7 @@ public class EventController {
         }
     }
     @PutMapping("/put/{id}")
-    public ResponseEntity<?>put(@RequestBody @Validated EventDTO eventDTO, @PathVariable("id") final long id){
+    public ResponseEntity<?>put(@RequestBody EventDTO eventDTO, @PathVariable("id") final long id){
         try {
             EventDTO eventName = service.findById(id);
             this.service.put(eventDTO,id);
