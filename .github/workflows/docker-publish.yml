@@ -27,5 +27,6 @@ jobs:
         with:
           platforms: linux/amd64,linux/arm64
           push: true
+          dockerfile: ./latinoware/Dockerfile
           target: final
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/lw-teste:latest
