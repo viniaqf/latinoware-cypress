@@ -17,7 +17,7 @@ public class AbstractEntity {
 
     @Getter @Setter
     @Column(name = "dtCadastro", nullable = false)
-    private LocalDateTime register;
+    private LocalDateTime registerDate;
 
     @Getter @Setter
     @Column(name = "dtEdicao")
@@ -33,7 +33,7 @@ public class AbstractEntity {
 
 @PrePersist
     private void prePersist(){
-    this.register = LocalDateTime.now();
+    this.registerDate = LocalDateTime.now();
     this.active = true;
     this.deleted = null;
     }

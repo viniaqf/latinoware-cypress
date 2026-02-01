@@ -15,10 +15,6 @@ public class Event extends AbstractEntity {
     @Column(name = "eventName", nullable = false, unique = true, length = 50)
     private String name;
 
-    @Getter @Setter
-    @Column(name = "eventDate", nullable = false)
-    private LocalDateTime date;
-
     @Getter @Setter @Enumerated(EnumType.STRING)
     @Column(name = "eventLocation", nullable = false)
     private EventLocation location;
@@ -27,4 +23,8 @@ public class Event extends AbstractEntity {
     @Getter @Setter
     @JoinColumn(name = "orator_id", nullable = false)
     private Orator orator;
+
+    @Getter @Setter
+    @Column(name = "eventDate", nullable = false)
+    private LocalDateTime eventDate;
 }
